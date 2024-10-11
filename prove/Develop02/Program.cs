@@ -106,8 +106,8 @@ class Program
             {"1. Write", 
             "2. Display", 
             "3. Load",
-            "3. Save", 
-            "4. Quit"};
+            "4. Save", 
+            "5. Quit"};
         int input;
 
         Console.Write("Would you like to load from a preexisting file? (y/n) ");
