@@ -7,7 +7,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        List<int> numbers = new List<int>();
+        List<int> numbers = new List<int>(1);
         int newNum = 0;
         float numTotal = 0;
         int smallNum = 0;
