@@ -1,0 +1,4 @@
+100
+Simple:Be nice|Don't be rude|100|False
+Eternal:Pray|Pray three times daily|50|True|11/23/2024
+Checklist:Go to temple|Please go to temple|100|200|4|0
