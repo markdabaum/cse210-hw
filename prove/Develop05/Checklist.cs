@@ -1,15 +1,9 @@
 public class Checklist : Goal
 {
+//This class has the most extra stuff because it has to check for bonus material
     private int _bonus;
     private int _bonusCount;
     private int _bonusValue;
-
-    // public Checklist(string goalType, string goalTitle, string goalDescription, int pointValue, int bonusValue, int bonus, int bonusCount) : base(goalType, goalTitle, goalDescription, pointValue)
-    // {
-    //     _bonusValue = bonusValue;
-    //     _bonus = bonus;
-    //     _bonusCount = bonusCount;
-    // }
 
     public override void CreateGoal()
     {

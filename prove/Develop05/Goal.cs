@@ -8,14 +8,7 @@ public class Goal
     private string _goalDescription = "";
     private int _pointValue = 0;
 
-    // public Goal(string goalType, string goalTitle, string goalDescription, int pointValue)
-    // {
-    //     _goalType = goalType;
-    //     _goalTitle = goalTitle;
-    //     _goalDescription = goalDescription;
-    //     _pointValue = pointValue;
-    // }
-
+// Some getters and setters. I could've use more, but I'd rather just have some variables protected instead
     public void AddToList(Goal goal)
     {
         _goalList.Add(goal);
@@ -31,6 +24,7 @@ public class Goal
         return _pointValue;
     }
 
+// Everthing else is a virtual method to be overriden by the child classes.
     public virtual string DisplayGoal()
     {
         string checkmark = " ";
@@ -40,6 +34,7 @@ public class Goal
         return $"[{checkmark}] {_goalTitle} ({_goalDescription})";
     }
 
+// CreateGoal is as close as we get to contructors in this program.
     public virtual void CreateGoal()
     {
         _goalType = "Goal";
@@ -54,11 +49,6 @@ public class Goal
         _pointValue = int.Parse(Console.ReadLine());
     }
 
-    public virtual int RecordGoal()
-    {
-        return _pointValue;
-    }
-
     public virtual string SaveGoal()
     {
        return $"{_goalType}:{_goalTitle}|{_goalDescription}|{_pointValue}";
@@ -71,4 +61,9 @@ public class Goal
         _pointValue = int.Parse(attributes[2]);
     }
     
+    // This method ended up being different enough for each class that I didn't bother specifying any real functionality here
+    public virtual int RecordGoal()
+    {
+        return _pointValue;
+    }
 }
