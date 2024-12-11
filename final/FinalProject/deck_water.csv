@@ -1,0 +1,6 @@
+Type, Name, Health, Attack, Secondary, AttackCourage, SecondaryCourage
+Water, Poodle, 40, 20, 10, 1, 2
+Water, Reign, 80, 40, 20, 2, 3
+Water, Stormie, 70, 40, 10, 3, 1
+Water, Flud, 30, 10, 10, 1, 0
+Water, Current, 60, 30, 10, 2, 2

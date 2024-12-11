@@ -1,0 +1,6 @@
+Type, Name, Health, Attack, Secondary, AttackCourage, SecondaryCourage
+Earth, Pebble, 30, 40, 10, 2, 1
+Earth, Stone, 40, 40, 10, 3, 1
+Earth, Rock, 50, 50, 20, 3, 2
+Earth, Boulder, 60, 50, 20, 4, 2
+Earth, Mountain, 100, 80, 30, 5, 3

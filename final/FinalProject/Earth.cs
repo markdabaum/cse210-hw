@@ -1,10 +1,15 @@
 public class Earth:Pokie
 {
-    int _defenceValue;
     bool _usedSecondary;
 
-    public Earth(string name, string type, int health, int attack, int attackCourage, int secondaryCourage, int defence):base(name, type, health, attack, attackCourage, secondaryCourage)
+    public Earth(string name, string type, int health, int attack, int secondary, int attackCourage, int secondaryCourage):base(name, type, health, attack, secondary, attackCourage, secondaryCourage)
     {
-        _defenceValue = defence;
+    }
+
+    public override void DisplayStats()
+    {
+        base.DisplayStats();
+        Console.WriteLine($"Stone Wall: {_pokieName} will take {_secondary} less damage if your opponent attacks. Need {_secondaryCourage} courage");
+        Console.WriteLine("Weak to Fire Pokies\n");
     }
 }
