@@ -6,6 +6,11 @@ public class Deck
 {
     private List<Pokie> _deck = [];
 
+    public Deck()
+    {
+        _deck = [];
+    }
+
     public Deck(string fileName)
     {
         string[] lines = System.IO.File.ReadAllLines(fileName);
@@ -43,21 +48,37 @@ public class Deck
         }
     }
 
-    public Deck(Pokie pokie1, Pokie pokie2, Pokie pokie3)
+    public Deck(Deck sourceDeck)
     {
-        _deck.Add(pokie1);
-        _deck.Add(pokie2);
-        _deck.Add(pokie3);
+        List<Pokie> deckList = sourceDeck._deck;
+
+        Pokie a = deckList[deckList.Count-1];
+        _deck.Add(a);
+        deckList.RemoveAt(deckList.Count-1);
+
+        Pokie b = deckList[deckList.Count-1];
+        _deck.Add(b);
+        deckList.RemoveAt(deckList.Count-1);
+    }
+
+    public int GetDeckCount()
+    {
+        int count = 0;
+        foreach (Pokie pokie in _deck)
+        {
+            count++;
+        }
+        return count;
     }
 
     public void DisplayDeck()
     {
         string deckType = _deck[0].GetType();
-        Console.WriteLine($"{deckType} Deck:\n");
         Thread.Sleep(1000);
-        foreach(Pokie pokie in _deck)
+        for(int i=0; i<_deck.Count; i++)
         {
-            pokie.DisplayStats();
+            Console.Write($"{i+1}. ");
+            _deck[i].DisplayStats();
             Thread.Sleep(500);
         }
         Console.Write("\n");
@@ -74,6 +95,25 @@ public class Deck
             _deck[j] = _deck[i];
             _deck[i] = pokie;
         }
+    }
+
+    public Pokie GivePokie(int index)
+    {
+        Pokie pokie = _deck[index];
+        _deck.RemoveAt(index);
+        return pokie;
+    }
+
+    public Deck MoveToDeck(Deck targetDeck, int index)
+    {
+        if (targetDeck == null)
+        {
+            targetDeck = new();
+        }
+        Pokie i = _deck[index];
+        targetDeck._deck.Add(i);
+        _deck.RemoveAt(index);
+        return targetDeck;
     }
     
 }

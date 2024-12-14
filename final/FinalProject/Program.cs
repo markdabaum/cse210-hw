@@ -5,22 +5,18 @@ class Program
 {
     static void Main(string[] args)
     {
-        Deck fireDeck = new("deck_fire.csv");
-        Deck waterDeck = new("deck_water.csv");
-        Deck earthDeck = new("deck_earth.csv");
-
         
+        UserPlayer player1 = new();
+        UserPlayer player2 = new();
+        CPUPlayer playerc = new();
 
-        UserBattle p1Battle = new();
-        UserBattle p2Battle = new();
-        CPUBattle comBattle = new();
-        
-        Player player1 = new(p1Battle);
-        Player player2 = new(p2Battle, comBattle);
+        Random randomGenerator = new();
 
+        int deckChoice = 0;
+        int turnCount = 1;
         int choice1 = 0;
         int choice2 = 0;
-        Random randomGenerator = new();
+       
 
         Console.WriteLine("Welcome to Poke-A-Man!\n");
 
@@ -31,6 +27,10 @@ class Program
             Console.Write("Enter your choice: ");
             choice1 = int.Parse(Console.ReadLine());
 
+            Deck fireDeck = new("deck_fire.csv");
+            Deck waterDeck = new("deck_water.csv");
+            Deck earthDeck = new("deck_earth.csv");
+            
             switch (choice1)
             {
                 case 1:
@@ -39,9 +39,10 @@ class Program
                     Console.WriteLine("\t2. Water");
                     Console.WriteLine("\t3. Earth");
                     Console.Write("Enter your Deck Choice: ");
-                    int deckchoice = int.Parse(Console.ReadLine());
+                    deckChoice = int.Parse(Console.ReadLine());
 
-                    switch (deckchoice)
+
+                    switch (deckChoice)
                     {
                         case 1:
                         player1.SetPlayerDeck(fireDeck);
@@ -75,6 +76,10 @@ class Program
             Console.Write("Enter your choice: ");
             choice2 = int.Parse(Console.ReadLine());
 
+            Deck fireDeck2 = new("deck_fire.csv");
+            Deck waterDeck2 = new("deck_water.csv");
+            Deck earthDeck2 = new("deck_earth.csv");
+
             switch (choice2)
             {
                 case 1:
@@ -84,28 +89,31 @@ class Program
                     Console.WriteLine("\t3. Earth");
                     Console.Write("Enter your Deck Choice: ");
                     int deckchoice = int.Parse(Console.ReadLine());
-
+                    
                     switch (deckchoice)
                     {
                         case 1:
-                        player2.SetPlayerDeck(fireDeck);
+                        player2.SetPlayerDeck(fireDeck2);
                         break;
 
                         case 2:
-                        player2.SetPlayerDeck(waterDeck);
+                        player2.SetPlayerDeck(waterDeck2);
                         break;
 
                         case 3:
-                        player2.SetPlayerDeck(earthDeck);
+                        player2.SetPlayerDeck(earthDeck2);
                         break;
                     }
                     break;
 
                 case 2:
                     Console.Clear();
-                    fireDeck.DisplayDeck();
-                    waterDeck.DisplayDeck();
-                    earthDeck.DisplayDeck();
+                    Console.WriteLine("Fire Deck:\n");
+                    fireDeck2.DisplayDeck();
+                    Console.WriteLine("Water Deck:\n");
+                    waterDeck2.DisplayDeck();
+                    Console.WriteLine("Earth Deck:\n");
+                    earthDeck2.DisplayDeck();
                     break;
                 
                 case 3:
@@ -114,15 +122,15 @@ class Program
                     switch (deckchoice)
                     {
                         case 1:
-                        player2.SetPlayerDeck(fireDeck);
+                        playerc.SetPlayerDeck(fireDeck2);
                         break;
 
                         case 2:
-                        player2.SetPlayerDeck(waterDeck);
+                        playerc.SetPlayerDeck(waterDeck2);
                         break;
 
                         case 3:
-                        player2.SetPlayerDeck(earthDeck);
+                        playerc.SetPlayerDeck(earthDeck2);
                         break;
                     }
                     break;
@@ -138,31 +146,45 @@ class Program
         Thread.Sleep(2000);
         Console.WriteLine("Battle!");
 
-        int playerTurn = randomGenerator.Next(0, 1);
+        int playerTurn = randomGenerator.Next(0, 2);
+
+        player1.DrawHand();
+
+        if (choice2 == 3)
+        {
+            playerc.DrawHand();
+        }
+        else if (choice2 == 1)
+        {
+            player2.DrawHand();
+        }
+
+
 
         bool battle = true;
 
-
-        // while (battle)
-        // {
-        //     if (playerTurn == 0)
-        //     {
-        //         p1Battle.
-        //     }
-
-        //     else if (playerTurn == 1)
-        //     {
-        //         if (choice2 == 3)
-        //         {
-        //             comBattle.
-        //         }
-
-        //         else 
-        //         {
-        //             p2Battle.
-        //         }
-        //     }
-        // }
+        while (battle)
+        {
+            if (playerTurn == 1)
+            {
+                if (turnCount > 2)
+                    player1.DrawCard();
+                Console.Clear();
+                Console.WriteLine("Player 1: ");
+                player1.PlaceCards(turnCount);
+                playerTurn--;
+            }
+            else
+            {
+                if (turnCount > 2)
+                    player2.DrawCard();
+                Console.Clear();
+                Console.WriteLine("Player 2");
+                player2.PlaceCards(turnCount);
+                playerTurn++;
+            }
+            turnCount++;
+        }
 
 
 

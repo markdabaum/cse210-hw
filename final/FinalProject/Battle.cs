@@ -10,8 +10,8 @@ public class Battle
         return _turnCount;
     }
 
-    public void DrawHand()
-    {
-        
-    }
+    // public void DrawHand()
+    // {
+    //     Deck deck = Player.GetPlayerDeck()
+    // }
 }
