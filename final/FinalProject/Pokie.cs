@@ -34,4 +34,9 @@ public class Pokie
         return _type;
     }
 
+    public void ReceiveCourage()
+    {
+        _courageCount++;
+    }
+
 }

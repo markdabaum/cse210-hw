@@ -71,15 +71,18 @@ public class Deck
         return count;
     }
 
-    public void DisplayDeck()
+    public void DisplayDeck(bool midturn)
     {
+
         string deckType = _deck[0].GetType();
-        Thread.Sleep(1000);
+        if (!midturn)
+            Thread.Sleep(1000);
         for(int i=0; i<_deck.Count; i++)
         {
             Console.Write($"{i+1}. ");
             _deck[i].DisplayStats();
-            Thread.Sleep(500);
+            if (!midturn)
+                Thread.Sleep(500);
         }
         Console.Write("\n");
     }
@@ -102,6 +105,12 @@ public class Deck
         Pokie pokie = _deck[index];
         _deck.RemoveAt(index);
         return pokie;
+    }
+
+    public void DisperseCourage(int index)
+    {
+        index--;
+        _deck[index].ReceiveCourage();
     }
 
     public Deck MoveToDeck(Deck targetDeck, int index)

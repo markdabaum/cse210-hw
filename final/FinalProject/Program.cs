@@ -59,10 +59,11 @@ class Program
                     break;
 
                 case 2:
+                    bool midturn = false;
                     Console.Clear();
-                    fireDeck.DisplayDeck();
-                    waterDeck.DisplayDeck();
-                    earthDeck.DisplayDeck();
+                    fireDeck.DisplayDeck(midturn);
+                    waterDeck.DisplayDeck(midturn);
+                    earthDeck.DisplayDeck(midturn);
                     break;
             }
         }while (choice1 != 1);
@@ -107,13 +108,14 @@ class Program
                     break;
 
                 case 2:
+                    bool midturn = false;
                     Console.Clear();
                     Console.WriteLine("Fire Deck:\n");
-                    fireDeck2.DisplayDeck();
+                    fireDeck2.DisplayDeck(midturn);
                     Console.WriteLine("Water Deck:\n");
-                    waterDeck2.DisplayDeck();
+                    waterDeck2.DisplayDeck(midturn);
                     Console.WriteLine("Earth Deck:\n");
-                    earthDeck2.DisplayDeck();
+                    earthDeck2.DisplayDeck(midturn);
                     break;
                 
                 case 3:
@@ -145,6 +147,7 @@ class Program
         Console.WriteLine("Set..\n");
         Thread.Sleep(2000);
         Console.WriteLine("Battle!");
+        Thread.Sleep(1000);
 
         int playerTurn = randomGenerator.Next(0, 2);
 
@@ -167,20 +170,28 @@ class Program
         {
             if (playerTurn == 1)
             {
-                if (turnCount > 2)
-                    player1.DrawCard();
                 Console.Clear();
                 Console.WriteLine("Player 1: ");
+                Thread.Sleep(2000);
+
+                if (turnCount > 2)
+                    player1.DrawCard();
                 player1.PlaceCards(turnCount);
+                player1.GiveCourage();
+
                 playerTurn--;
             }
             else
             {
+                Console.Clear();
+                Console.WriteLine("Player 2: ");
+                Thread.Sleep(2000);
+
                 if (turnCount > 2)
                     player2.DrawCard();
-                Console.Clear();
-                Console.WriteLine("Player 2");
                 player2.PlaceCards(turnCount);
+                player2.GiveCourage();
+
                 playerTurn++;
             }
             turnCount++;
