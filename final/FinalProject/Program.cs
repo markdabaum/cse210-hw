@@ -61,9 +61,9 @@ class Program
                 case 2:
                     bool midturn = false;
                     Console.Clear();
-                    fireDeck.DisplayDeck(midturn);
-                    waterDeck.DisplayDeck(midturn);
-                    earthDeck.DisplayDeck(midturn);
+                    fireDeck.DisplayDeck(midturn, 0);
+                    waterDeck.DisplayDeck(midturn, 0);
+                    earthDeck.DisplayDeck(midturn, 0);
                     break;
             }
         }while (choice1 != 1);
@@ -111,11 +111,11 @@ class Program
                     bool midturn = false;
                     Console.Clear();
                     Console.WriteLine("Fire Deck:\n");
-                    fireDeck2.DisplayDeck(midturn);
+                    fireDeck2.DisplayDeck(midturn, 0);
                     Console.WriteLine("Water Deck:\n");
-                    waterDeck2.DisplayDeck(midturn);
+                    waterDeck2.DisplayDeck(midturn, 0);
                     Console.WriteLine("Earth Deck:\n");
-                    earthDeck2.DisplayDeck(midturn);
+                    earthDeck2.DisplayDeck(midturn, 0);
                     break;
                 
                 case 3:
@@ -165,9 +165,12 @@ class Program
 
 
         bool battle = true;
+        int damage = 0;
+        Player winner = new();
 
         while (battle)
         {
+            damage = 0;
             if (playerTurn == 1)
             {
                 Console.Clear();
@@ -177,7 +180,20 @@ class Program
                 if (turnCount > 2)
                     player1.DrawCard();
                 player1.PlaceCards(turnCount);
-                player1.GiveCourage();
+                player1.GiveCourage(turnCount);
+                damage = player1.Attack(turnCount);
+
+                if (choice2 == 1)
+                    player2.GetDamage(damage);
+                else if (choice2 == 3)
+                    playerc.GetDamage(damage);
+
+                if (player1.GetPoints() == 2)
+                {
+                    winner = player1;
+                    battle = false;
+                    break;
+                }
 
                 playerTurn--;
             }
@@ -190,14 +206,27 @@ class Program
                 if (turnCount > 2)
                     player2.DrawCard();
                 player2.PlaceCards(turnCount);
-                player2.GiveCourage();
+                player2.GiveCourage(turnCount);
+                damage = player2.Attack(turnCount);
+                player1.GetDamage(damage);
+
+                if (player2.GetPoints() == 2)
+                {
+                    winner = player2;
+                    battle = false;
+                    break;
+                }
 
                 playerTurn++;
             }
             turnCount++;
         }
 
+        if (winner == player1)
+            Console.WriteLine("Player 1 won!");
 
+        else
+            Console.WriteLine("Player 2 won!");
 
 
     }

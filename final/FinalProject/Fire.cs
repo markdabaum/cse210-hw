@@ -14,4 +14,31 @@ public class Fire:Pokie
         Console.WriteLine($"Set Fire: {_secondary} additional damage will be done to your opponents primary Pokie. {_pokieName} will lose 2 courage ({_secondaryCourage} Courage)");
         Console.WriteLine($"Weak to Water Pokies\n");   
     }
+
+    public override int UseSecondary()
+    {
+        if (_courageCount >= _secondaryCourage)
+            _usedSecondary = true;
+        else{
+            Console.WriteLine($"{_pokieName} doesn't have enough Courage!");
+        }
+        int attack = GetAttack();
+        return attack;
+    }
+
+    public override int GetAttack()
+    {
+        int attack = base.GetAttack();
+        if (attack == 0)
+            return 0;
+        else
+        {
+            if (_usedSecondary)
+            {
+                attack += _secondary;
+                _usedSecondary = false;
+            }
+            return attack;
+        }
+    }
 }

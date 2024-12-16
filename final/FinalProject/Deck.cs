@@ -64,22 +64,24 @@ public class Deck
     public int GetDeckCount()
     {
         int count = 0;
-        foreach (Pokie pokie in _deck)
+        if (_deck != null)
         {
-            count++;
+            foreach (Pokie pokie in _deck)
+            {
+                count++;
+            }
         }
         return count;
     }
 
-    public void DisplayDeck(bool midturn)
+    public void DisplayDeck(bool midturn, int displayCount)
     {
-
         string deckType = _deck[0].GetType();
         if (!midturn)
             Thread.Sleep(1000);
         for(int i=0; i<_deck.Count; i++)
         {
-            Console.Write($"{i+1}. ");
+            Console.Write($"{i+1+displayCount}. ");
             _deck[i].DisplayStats();
             if (!midturn)
                 Thread.Sleep(500);

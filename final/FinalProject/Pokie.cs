@@ -1,12 +1,14 @@
+using System.Security.Cryptography;
+
 public class Pokie
 {
     protected string _pokieName;
     private string _type;
-    private int _health;
-    private int _totalHealth;
+    protected int _health;
+    protected int _totalHealth;
     private int _attack;
     protected int _secondary;
-    private int _courageCount;
+    protected int _courageCount;
     private int _attackCourage;
     protected int _secondaryCourage;
 
@@ -23,6 +25,11 @@ public class Pokie
         _secondaryCourage = secondaryCourage;
     }
 
+    public string GetName()
+    {
+        return _pokieName;
+    }
+
     public virtual void DisplayStats()
     {
         Console.WriteLine($"{_pokieName}: ({_totalHealth}/{_health}) {_courageCount} Courage");
@@ -37,6 +44,29 @@ public class Pokie
     public void ReceiveCourage()
     {
         _courageCount++;
+    }
+
+    public virtual int UseSecondary(){return 0;}
+
+    public virtual int GetAttack()
+    {
+        if (_courageCount >= _attackCourage)
+        {
+            return _attack;
+        }
+
+        else
+        {
+            Console.WriteLine($"{_pokieName} Doesn't have enough Courage!");
+            Thread.Sleep(1000);
+            return 0;
+        }
+    }
+
+    public virtual int TakeDamage(int damage)
+    {
+        _totalHealth -= damage;
+        return _totalHealth;
     }
 
 }
