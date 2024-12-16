@@ -61,13 +61,16 @@ class Program
                 case 2:
                     bool midturn = false;
                     Console.Clear();
+                    Console.WriteLine("Fire Deck:\n");
                     fireDeck.DisplayDeck(midturn, 0);
+                    Console.WriteLine("Water Deck:\n");
                     waterDeck.DisplayDeck(midturn, 0);
+                    Console.WriteLine("Earth Deck:\n");
                     earthDeck.DisplayDeck(midturn, 0);
                     break;
             }
         }while (choice1 != 1);
-        Console.WriteLine();
+        Console.Clear();
 
         do{ //Player 2 Starting Menu
             Console.WriteLine("Player 2:");
@@ -119,7 +122,7 @@ class Program
                     break;
                 
                 case 3:
-                    deckchoice = randomGenerator.Next(1, 3);
+                    deckchoice = randomGenerator.Next(1, 4);
 
                     switch (deckchoice)
                     {
@@ -166,12 +169,15 @@ class Program
 
         bool battle = true;
         int damage = 0;
+        int player1Points = 0;
+        int player2Points = 0;
+
         Player winner = new();
 
         while (battle)
         {
             damage = 0;
-            if (playerTurn == 1)
+            if (playerTurn == 1) //Player 1 Turn Logic
             {
                 Console.Clear();
                 Console.WriteLine("Player 1: ");
@@ -184,11 +190,11 @@ class Program
                 damage = player1.Attack(turnCount);
 
                 if (choice2 == 1)
-                    player2.GetDamage(damage);
+                    player1Points += player2.GetDamage(damage);
                 else if (choice2 == 3)
-                    playerc.GetDamage(damage);
+                    player1Points += playerc.GetDamage(damage);
 
-                if (player1.GetPoints() == 2)
+                if (player1Points == 2)
                 {
                     winner = player1;
                     battle = false;
@@ -197,26 +203,49 @@ class Program
 
                 playerTurn--;
             }
-            else
+            else //Player 2 Turn Logic
             {
-                Console.Clear();
-                Console.WriteLine("Player 2: ");
-                Thread.Sleep(2000);
-
-                if (turnCount > 2)
-                    player2.DrawCard();
-                player2.PlaceCards(turnCount);
-                player2.GiveCourage(turnCount);
-                damage = player2.Attack(turnCount);
-                player1.GetDamage(damage);
-
-                if (player2.GetPoints() == 2)
+                if (choice2 == 1) //If player 2 is human
                 {
-                    winner = player2;
-                    battle = false;
-                    break;
+                    Console.Clear();
+                    Console.WriteLine("Player 2: ");
+                    Thread.Sleep(2000);
+
+                    if (turnCount > 2)
+                        player2.DrawCard();
+                    player2.PlaceCards(turnCount);
+                    player2.GiveCourage(turnCount);
+                    damage = player2.Attack(turnCount);
+                    player2Points += player1.GetDamage(damage);
+
+                    if (player2Points ==  2)
+                    {
+                        winner = player2;
+                        battle = false;
+                        break;
+                    }
                 }
 
+                else if (choice2 == 3) //if player 2 is a CPU
+                {
+                    Console.Clear();
+                    Console.WriteLine("Player 2: ");
+                    Thread.Sleep(2000);
+
+                    if (turnCount > 2)
+                        playerc.DrawCard();
+                    playerc.PlaceCards(turnCount);
+                    playerc.GiveCourage(turnCount);
+                    damage = playerc.Attack(turnCount);
+                    player2Points += player1.GetDamage(damage);
+
+                    if (player2Points ==  2)
+                    {
+                        winner = player2;
+                        battle = false;
+                        break;
+                    }
+                }
                 playerTurn++;
             }
             turnCount++;

@@ -2,5 +2,5 @@ Type, Name, Health, Attack, Secondary, AttackCourage, SecondaryCourage
 Fire, Crispy, 50, 20, 10, 2, 3
 Fire, Snubs, 40, 10, 10, 1, 2
 Fire, Charcoal, 70, 30, 30, 3, 5
-Fire, Matchstick, 40, 20, 10, 2, 2
+Fire, Matchstick, 40, 20, 10, 2, 3
 Fire, Lazer, 60, 10, 40, 1, 4

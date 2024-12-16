@@ -7,8 +7,7 @@ public class Water:Pokie
     public override void DisplayStats()
     {
         base.DisplayStats();
-        Console.WriteLine($"Water Bath: Heal {_secondary} to {_pokieName}. ({_secondaryCourage} Courage)");
-        Console.WriteLine("Weak to Earth Pokies\n");
+        Console.WriteLine($"Water Bath: Heal {_secondary} to {_pokieName}. ({_secondaryCourage} Courage)\n");
     }
 
     public override int UseSecondary()

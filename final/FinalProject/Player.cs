@@ -44,10 +44,12 @@ public class Player
 
     public virtual int Attack(int turnCount){return 0;}
 
-    public virtual void GetDamage(int damage)
+    public virtual int GetDamage(int damage)
     {
         Console.WriteLine($"You delt {damage} damage");
+
         int primaryHealth;
+        int point = 0;
 
         if (_primary != null)
         {
@@ -56,9 +58,15 @@ public class Player
             {
                 Console.WriteLine($"{_primary.GetName()} has fainted!");
                 _primary = null;
-                _points ++;
+                point = 1;
             }
+            else 
+                Console.WriteLine($"{_primary.GetName()} is still standing!");
         }
+
+        Thread.Sleep(1000);
+
+        return point;
     }
 
     

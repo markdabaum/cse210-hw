@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 
 public class Pokie
@@ -28,6 +29,27 @@ public class Pokie
     public string GetName()
     {
         return _pokieName;
+    }
+
+    public int GetCourage()
+    {
+        return _courageCount;
+    }
+
+    public int GetMaxCourage()
+    {
+        if (_attackCourage > _secondaryCourage)
+            return _attackCourage;
+        else
+            return _secondaryCourage;
+    }
+
+    public int GetMinCourage()
+    {
+        if (_attackCourage < _secondaryCourage)
+            return _attackCourage;
+        else 
+            return _secondaryCourage;
     }
 
     public virtual void DisplayStats()

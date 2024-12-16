@@ -121,10 +121,14 @@ public class Deck
         {
             targetDeck = new();
         }
-        Pokie i = _deck[index];
-        targetDeck._deck.Add(i);
-        _deck.RemoveAt(index);
+        if (index >= 0)
+        {
+            Pokie i = _deck[index];
+            targetDeck._deck.Add(i);
+            _deck.RemoveAt(index);
+        }
         return targetDeck;
+    
     }
     
 }

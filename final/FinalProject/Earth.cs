@@ -9,8 +9,7 @@ public class Earth:Pokie
     public override void DisplayStats()
     {
         base.DisplayStats();
-        Console.WriteLine($"Stone Wall: {_pokieName} will take {_secondary} less damage if your opponent attacks. Need {_secondaryCourage} courage");
-        Console.WriteLine("Weak to Fire Pokies\n");
+        Console.WriteLine($"Stone Wall: {_pokieName} will take {_secondary} less damage if your opponent attacks. Need {_secondaryCourage} courage\n");
     }
 
     public override int UseSecondary()

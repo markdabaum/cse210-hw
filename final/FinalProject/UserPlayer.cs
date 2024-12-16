@@ -12,17 +12,22 @@ public class UserPlayer: Player
             if (_bench != null)
                 displayCount = _bench.GetDeckCount();
 
-        Console.WriteLine("You Primary Pokie:\n");
+        Console.WriteLine("Your Primary Pokie:\n");
         if (_primary != null)
             _primary.DisplayStats();
 
         Console.WriteLine("Your bench:\n");
         if (_bench != null)
-            _bench.DisplayDeck(midturn, 0);
-
+        {
+            if (_bench.GetDeckCount() > 0)
+                _bench.DisplayDeck(midturn, 0);
+        }
         Console.WriteLine("Your Hand:\n");
-        if (_playerHand != null )
-            _playerHand.DisplayDeck(midturn, displayCount);   
+        if (_playerHand != null || _playerHand.GetDeckCount() > 0)
+        {
+            if (_playerHand.GetDeckCount() > 0)
+                _playerHand.DisplayDeck(midturn, displayCount);   
+        }
     }
 
     public override void PlaceCards(int turnCounter)
@@ -41,7 +46,7 @@ public class UserPlayer: Player
 
             if (_primary == null)
             {
-                if (turnCounter <= 2)
+                if (turnCounter <= 2 || _bench.GetDeckCount() == 0)
                 {
                     Console.Write($"Set a Pokie as your Primary (1-{_playerHand.GetDeckCount()}): ");
                     index = int.Parse(Console.ReadLine()) - 1;
@@ -51,7 +56,7 @@ public class UserPlayer: Player
                 }
                 else
                 {
-                    Console.WriteLine($"Set a Pokie from your bench as your Primary: (1-{_bench.GetDeckCount})");
+                    Console.WriteLine($"Set a Pokie from your bench as your Primary: (1-{_bench.GetDeckCount()})");
                     index = int.Parse(Console.ReadLine()) - 1;
                     _primary = _bench.GivePokie(index);
                     DisplayPlayerInfo(turnCounter, midturn = true);
@@ -60,7 +65,7 @@ public class UserPlayer: Player
             }
             
             else{
-                if(_bench == null || _bench.GetDeckCount() <=2)
+                if(_bench == null || _bench.GetDeckCount() < 2)
                 {
                     Console.Write($"You may move one Pokie from your hand to the bench ({1+displayAdjustment} - {displayAdjustment + _playerHand.GetDeckCount()}, or enter \"0\" to skip): ");
                     index = int.Parse(Console.ReadLine()) - displayAdjustment;
@@ -87,10 +92,6 @@ public class UserPlayer: Player
 
     public override void GiveCourage(int counter)
     {
-        int displayAdjustment = 0;
-        if (_bench != null)
-            displayAdjustment = _bench.GetDeckCount();
-
         Console.WriteLine("You may give Courage to your Primary Pokie or one of your benched Pokies");
         if (_bench == null || _bench.GetDeckCount() == 0)
             Console.WriteLine($"(\"0\" for Primary)");
@@ -98,8 +99,6 @@ public class UserPlayer: Player
             Console.Write($"(1-{_bench.GetDeckCount()}, \"0\" for Primary): ");
 
         int index = int.Parse(Console.ReadLine());
-
-        index -= displayAdjustment;
         
         if (index == 0)
         {
@@ -115,6 +114,7 @@ public class UserPlayer: Player
             Console.WriteLine("Invalid Input. No Courage given.");
         
         DisplayPlayerInfo(counter, true);
+        Thread.Sleep(1000);
     }
 
     public override int Attack(int turnCount)
@@ -133,7 +133,7 @@ public class UserPlayer: Player
                 if (action == 1)
                     damage = _primary.GetAttack();
                 else if (action == 2)
-                    _primary.UseSecondary();
+                    damage = _primary.UseSecondary();
 
                 return damage;
             }
